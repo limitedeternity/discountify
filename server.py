@@ -50,6 +50,11 @@ def serve_css(path):
     return send_from_directory('static/css', path)
 
 
+@app.route('/config/<path:path>', methods=['GET'])
+def serve_config(path):
+    return send_from_directory('static/config', path)
+
+
 @app.route('/fonts/<path:path>', methods=['GET'])
 def serve_fonts(path):
     return send_from_directory('static/fonts', path)

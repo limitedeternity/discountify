@@ -1,259 +1,293 @@
-(function ($) {
+(function($) {
 
-    skel.breakpoints({
-        xlarge: '(max-width: 1680px)',
-        large: '(max-width: 1280px)',
-        medium: '(max-width: 980px)',
-        small: '(max-width: 736px)',
-        xsmall: '(max-width: 480px)'
-    });
+	skel.breakpoints({
+		xlarge: '(max-width: 1680px)',
+		large: '(max-width: 1280px)',
+		medium: '(max-width: 980px)',
+		small: '(max-width: 736px)',
+		xsmall: '(max-width: 480px)'
+	});
 
-    $(function () {
+	$(function() {
 
-        var $window = $(window),
-            $body = $('body'),
-            $wrapper = $('#wrapper');
+		var	$window = $(window),
+			$body = $('body'),
+			$wrapper = $('#wrapper');
 
-        if (skel.vars.IEVersion < 12)
-            $body.addClass('ie');
+		// Hack: Enable IE workarounds.
+			if (skel.vars.IEVersion < 12)
+				$body.addClass('ie');
 
-        if (skel.vars.mobile)
-            $body.addClass('touch');
+		// Touch?
+			if (skel.vars.mobile)
+				$body.addClass('touch');
 
-        if (skel.canUse('transition')) {
+		// Transitions supported?
+			if (skel.canUse('transition')) {
 
-            $body.addClass('loading');
+				// Add (and later, on load, remove) "loading" class.
+					$body.addClass('loading');
 
-            $window.on('load', function () {
-                window.setTimeout(function () {
-                    $body.removeClass('loading');
-                }, 100);
-            });
+					$window.on('load', function() {
+						window.setTimeout(function() {
+							$body.removeClass('loading');
+						}, 100);
+					});
 
-            var resizeTimeout;
+				// Prevent transitions/animations on resize.
+					var resizeTimeout;
 
-            $window.on('resize', function () {
+					$window.on('resize', function() {
 
-                window.clearTimeout(resizeTimeout);
+						window.clearTimeout(resizeTimeout);
 
-                $body.addClass('resizing');
+						$body.addClass('resizing');
 
-                resizeTimeout = window.setTimeout(function () {
-                    $body.removeClass('resizing');
-                }, 100);
+						resizeTimeout = window.setTimeout(function() {
+							$body.removeClass('resizing');
+						}, 100);
 
-            });
+					});
 
-        }
+			}
 
-        $window.scrollTop(0);
+		// Scroll back to top.
+			$window.scrollTop(0);
 
-        $('form').placeholder();
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
 
-        var $panels = $('.panel');
+		// Panels.
+			var $panels = $('.panel');
 
-        $panels.each(function () {
+			$panels.each(function() {
 
-            var $this = $(this),
-                $toggles = $('[href="#' + $this.attr('id') + '"]'),
-                $closer = $('<div class="closer" />').appendTo($this);
+				var $this = $(this),
+					$toggles = $('[href="#' + $this.attr('id') + '"]'),
+					$closer = $('<div class="closer" />').appendTo($this);
 
-            $closer
-                .on('click', function (event) {
-                    $this.trigger('---hide');
-                });
+				// Closer.
+					$closer
+						.on('click', function(event) {
+							$this.trigger('---hide');
+						});
 
-            $this
-                .on('click', function (event) {
-                    event.stopPropagation();
-                })
-                .on('---toggle', function () {
+				// Events.
+					$this
+						.on('click', function(event) {
+							event.stopPropagation();
+						})
+						.on('---toggle', function() {
 
-                    if ($this.hasClass('active'))
-                        $this.triggerHandler('---hide');
-                    else
-                        $this.triggerHandler('---show');
+							if ($this.hasClass('active'))
+								$this.triggerHandler('---hide');
+							else
+								$this.triggerHandler('---show');
 
-                })
-                .on('---show', function () {
+						})
+						.on('---show', function() {
 
-                    if ($body.hasClass('content-active'))
-                        $panels.trigger('---hide');
+							// Hide other content.
+								if ($body.hasClass('content-active'))
+									$panels.trigger('---hide');
 
-                    $this.addClass('active');
-                    $toggles.addClass('active');
+							// Activate content, toggles.
+								$this.addClass('active');
+								$toggles.addClass('active');
 
-                    $body.addClass('content-active');
+							// Activate body.
+								$body.addClass('content-active');
 
-                })
-                .on('---hide', function () {
+						})
+						.on('---hide', function() {
 
-                    $this.removeClass('active');
-                    $toggles.removeClass('active');
+							// Deactivate content, toggles.
+								$this.removeClass('active');
+								$toggles.removeClass('active');
 
-                    $body.removeClass('content-active');
+							// Deactivate body.
+								$body.removeClass('content-active');
 
-                });
+						});
 
-            $toggles
-                .removeAttr('href')
-                .css('cursor', 'pointer')
-                .on('click', function (event) {
+				// Toggles.
+					$toggles
+						.removeAttr('href')
+						.css('cursor', 'pointer')
+						.on('click', function(event) {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+							event.preventDefault();
+							event.stopPropagation();
 
-                    $this.trigger('---toggle');
+							$this.trigger('---toggle');
 
-                });
+						});
 
-        });
+			});
 
-        $body
-            .on('click', function (event) {
+			// Global events.
+				$body
+					.on('click', function(event) {
 
-                if ($body.hasClass('content-active')) {
+						if ($body.hasClass('content-active')) {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+							event.preventDefault();
+							event.stopPropagation();
 
-                    $panels.trigger('---hide');
+							$panels.trigger('---hide');
 
-                }
+						}
 
-            });
+					});
 
-        $window
-            .on('keyup', function (event) {
+				$window
+					.on('keyup', function(event) {
 
-                if (event.keyCode == 27 &&
-                    $body.hasClass('content-active')) {
+						if (event.keyCode == 27
+						&&	$body.hasClass('content-active')) {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+							event.preventDefault();
+							event.stopPropagation();
 
-                    $panels.trigger('---hide');
+							$panels.trigger('---hide');
 
-                }
+						}
 
-            });
+					});
 
-        var $header = $('#header');
+		// Header.
+			var $header = $('#header');
 
-        $header.find('a').each(function () {
+			// Links.
+				$header.find('a').each(function() {
 
-            var $this = $(this),
-                href = $this.attr('href');
+					var $this = $(this),
+						href = $this.attr('href');
 
-            if (!href ||
-                href.charAt(0) == '#')
-                return;
+					// Internal link? Skip.
+						if (!href
+						||	href.charAt(0) == '#')
+							return;
 
-            $this
-                .removeAttr('href')
-                .css('cursor', 'pointer')
-                .on('click', function (event) {
+					// Redirect on click.
+						$this
+							.removeAttr('href')
+							.css('cursor', 'pointer')
+							.on('click', function(event) {
 
-                    event.preventDefault();
-                    event.stopPropagation();
+								event.preventDefault();
+								event.stopPropagation();
 
-                    window.location.href = href;
+								window.location.href = href;
 
-                });
+							});
 
-        });
+				});
 
-        var $footer = $('#footer');
+		// Footer.
+			var $footer = $('#footer');
 
-        $footer.find('.copyright').each(function () {
+			// Copyright.
+			// This basically just moves the copyright line to the end of the *last* sibling of its current parent
+			// when the "medium" breakpoint activates, and moves it back when it deactivates.
+				$footer.find('.copyright').each(function() {
 
-            var $this = $(this),
-                $parent = $this.parent(),
-                $lastParent = $parent.parent().children().last();
+					var $this = $(this),
+						$parent = $this.parent(),
+						$lastParent = $parent.parent().children().last();
 
-            skel
-                .on('+medium', function () {
-                    $this.appendTo($lastParent);
-                })
-                .on('-medium', function () {
-                    $this.appendTo($parent);
-                });
+					skel
+						.on('+medium', function() {
+							$this.appendTo($lastParent);
+						})
+						.on('-medium', function() {
+							$this.appendTo($parent);
+						});
 
-        });
+				});
 
-        var $main = $('#main');
+		// Main.
+			var $main = $('#main');
 
-        $main.children('.thumb').each(function () {
+			// Thumbs.
+				$main.children('.thumb').each(function() {
 
-            var $this = $(this),
-                $image = $this.find('.image'),
-                $image_img = $image.children('img'),
-                x;
+					var	$this = $(this),
+						$image = $this.find('.image'), $image_img = $image.children('img'),
+						x;
 
-            if ($image.length == 0)
-                return;
+					// No image? Bail.
+						if ($image.length == 0)
+							return;
 
+					// Image.
+					// This sets the background of the "image" <span> to the image pointed to by its child
+					// <img> (which is then hidden). Gives us way more flexibility.
 
-            $image.css('background-image', 'url(' + $image_img.attr('src') + ')');
+						// Set background.
+							$image.css('background-image', 'url(' + $image_img.attr('src') + ')');
 
-            if (x = $image_img.data('position'))
-                $image.css('background-position', x);
+						// Set background position.
+							if (x = $image_img.data('position'))
+								$image.css('background-position', x);
 
-            $image_img.hide();
+						// Hide original img.
+							$image_img.hide();
 
-            if (skel.vars.IEVersion < 11)
-                $this
-                .css('cursor', 'pointer')
-                .on('click', function () {
-                    $image.trigger('click');
-                });
+					// Hack: IE<11 doesn't support pointer-events, which means clicks to our image never
+					// land as they're blocked by the thumbnail's caption overlay gradient. This just forces
+					// the click through to the image.
+						if (skel.vars.IEVersion < 11)
+							$this
+								.css('cursor', 'pointer')
+								.on('click', function() {
+									$image.trigger('click');
+								});
 
-        });
+				});
 
-        $main.poptrox({
-            baseZIndex: 20000,
-            caption: function ($a) {
+			// Poptrox.
+				$main.poptrox({
+					baseZIndex: 20000,
+					caption: function($a) {
 
-                var s = '';
+						var s = '';
 
-                $a.nextAll().each(function () {
-                    s += this.outerHTML;
-                });
+						$a.nextAll().each(function() {
+							s += this.outerHTML;
+						});
 
-                return s;
+						return s;
 
-            },
-            fadeSpeed: 300,
-            onPopupClose: function () {
-                $body.removeClass('modal-active');
-            },
-            onPopupOpen: function () {
-                $body.addClass('modal-active');
-            },
-            overlayOpacity: 0,
-            popupCloserText: '',
-            popupHeight: 150,
-            popupLoaderText: '',
-            popupSpeed: 300,
-            popupWidth: 150,
-            selector: '.thumb > a.image',
-            usePopupCaption: true,
-            usePopupCloser: true,
-            usePopupDefaultStyling: false,
-            usePopupForceClose: true,
-            usePopupLoader: true,
-            usePopupNav: true,
-            windowMargin: 50
-        });
+					},
+					fadeSpeed: 300,
+					onPopupClose: function() { $body.removeClass('modal-active'); },
+					onPopupOpen: function() { $body.addClass('modal-active'); },
+					overlayOpacity: 0,
+					popupCloserText: '',
+					popupHeight: 150,
+					popupLoaderText: '',
+					popupSpeed: 300,
+					popupWidth: 150,
+					selector: '.thumb > a.image',
+					usePopupCaption: true,
+					usePopupCloser: true,
+					usePopupDefaultStyling: false,
+					usePopupForceClose: true,
+					usePopupLoader: true,
+					usePopupNav: true,
+					windowMargin: 50
+				});
 
-        skel
-            .on('-xsmall', function () {
-                $main[0]._poptrox.windowMargin = 50;
-            })
-            .on('+xsmall', function () {
-                $main[0]._poptrox.windowMargin = 0;
-            });
+				// Hack: Set margins to 0 when 'xsmall' activates.
+					skel
+						.on('-xsmall', function() {
+							$main[0]._poptrox.windowMargin = 50;
+						})
+						.on('+xsmall', function() {
+							$main[0]._poptrox.windowMargin = 0;
+						});
 
-    });
+	});
 
 })(jQuery);
