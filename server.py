@@ -17,6 +17,10 @@ def index():
         'restore': "data:image/png;base64," + b64encode(open(f'./static/images/codes/restore/{choice(listdir(abspath("./static/images/codes/restore/")))}', 'rb').read()).decode("utf-8").strip("b"),
         'advantage': "data:image/png;base64," + b64encode(open(f'./static/images/codes/advantage/{choice(listdir(abspath("./static/images/codes/advantage/")))}', 'rb').read()).decode("utf-8").strip("b"),
         '585gold': "data:image/png;base64," + b64encode(open(f'./static/images/codes/585gold/{choice(listdir(abspath("./static/images/codes/585gold/")))}', 'rb').read()).decode("utf-8").strip("b"),
+        'sony': "data:image/png;base64," + b64encode(open(f'./static/images/codes/sony/{choice(listdir(abspath("./static/images/codes/sony/")))}', 'rb').read()).decode("utf-8").strip("b"),
+        'samsung': "data:image/png;base64," + b64encode(open(f'./static/images/codes/samsung/{choice(listdir(abspath("./static/images/codes/samsung/")))}', 'rb').read()).decode("utf-8").strip("b"),
+        'funday': "data:image/png;base64," + b64encode(open(f'./static/images/codes/funday/{choice(listdir(abspath("./static/images/codes/funday/")))}', 'rb').read()).decode("utf-8").strip("b"),
+        'nike': "data:image/png;base64," + b64encode(open(f'./static/images/codes/nike/{choice(listdir(abspath("./static/images/codes/nike/")))}', 'rb').read()).decode("utf-8").strip("b")
     }
 
     response = make_response(render_template("index.html", barcodes=barcodes_dict))
