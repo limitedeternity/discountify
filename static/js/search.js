@@ -5,14 +5,6 @@ $(document).ready(function() {
   var images = $(".image");
   var fadeinCalled = false;
 
-  var searchReveal = function() {
-    if  ( $("#searchInput").is(":visible") ) {
-      $("#searchInput").focus();
-    }
-  }
-
-  setInterval(searchReveal, 150)
-
   var inputChecker = function() {
     if ( $("#searchInput").val().length > 0 ) {
       searchInput();
