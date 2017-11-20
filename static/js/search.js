@@ -6,7 +6,7 @@ $(document).ready(function() {
   var fadeinCalled = false;
 
   var searchReveal = function() {
-    if  ( $("#search").is(":visible") ) {
+    if  ( $("#searchInput").is(":visible") ) {
       $("#searchInput").focus();
     }
   }
