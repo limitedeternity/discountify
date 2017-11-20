@@ -44,63 +44,76 @@
 						<h1><a href="/"><strong>Discountify</strong> by @limitedeternity</a></h1>
 						<nav>
 							<ul>
-								<li><a href="#footer" class="icon fa-info-circle">About</a></li>
+								<li><a href="#search" class="icon fa-search">Search</a></li>
+								<li><a href="#about" class="icon fa-info-circle">About</a></li>
 							</ul>
 						</nav>
 					</header>
 					<div id="main">
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['ostin'] }}"><img src="/images/thumbs/ostin.png" alt="" /></a>
+							<a class="image" data-search="ostin, остин" href="{{ barcodes['ostin'] }}"><img src="/images/thumbs/ostin.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['restore'] }}"><img src="/images/thumbs/restore.png" alt="" /></a>
+							<a class="image" data-search="restore, рестор, re:store, re: store"href="{{ barcodes['restore'] }}"><img src="/images/thumbs/restore.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['lenta'] }}"><img src="/images/thumbs/lenta.png" alt="" /></a>
+							<a class="image" data-search="lenta, лента" href="{{ barcodes['lenta'] }}"><img src="/images/thumbs/lenta.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['advantage'] }}"><img src="/images/thumbs/advantage.png" alt="" /></a>
+							<a class="image" data-search="advantage, улыбка, радуги, улыбка радуги" href="{{ barcodes['advantage'] }}"><img src="/images/thumbs/advantage.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['585gold'] }}"><img src="/images/thumbs/585gold.png" alt="" /></a>
+							<a class="image" data-search="585gold, 585 gold" href="{{ barcodes['585gold'] }}"><img src="/images/thumbs/585gold.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['samsung'] }}"><img src="/images/thumbs/samsung.png" alt="" /></a>
+							<a class="image" data-search="samsung, самсунг" href="{{ barcodes['samsung'] }}"><img src="/images/thumbs/samsung.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['sony'] }}"><img src="/images/thumbs/sony.png" alt="" /></a>
+							<a class="image" data-search="sony, сони" href="{{ barcodes['sony'] }}"><img src="/images/thumbs/sony.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['funday'] }}"><img src="/images/thumbs/funday.png" alt="" /></a>
+							<a class="image" data-search="funday, фандей, фандэй" href="{{ barcodes['funday'] }}"><img src="/images/thumbs/funday.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 						<article class="thumb">
-							<a class="image" href="{{ barcodes['nike'] }}"><img src="/images/thumbs/nike.png" alt="" /></a>
+							<a class="image" data-search="nike, найк" href="{{ barcodes['nike'] }}"><img src="/images/thumbs/nike.png" alt="" /></a>
 							<h2>&nbsp;</h2>
 							<p>&nbsp;</p>
 						</article>
 					</div>
-					<footer id="footer" class="panel">
+					<div id="search" class="panel">
+						<div class="inner split">
+							<div>
+								<section>
+									<h2>Search</h2>
+									<div style="width:100%;clear:both;height:5px;"></div>
+									<input type="text" id="searchInput" placeholder="Shop name" value="" autocomplete="off">
+									<div style="width:100%;clear:both;height:15px;"></div>
+								</section>
+							</div>
+						</div>
+					</div>
+					<div id="about" class="panel">
 						<div class="inner split">
 							<div>
 								<section>
 									<h2>About</h2>
-									<p>This project was created to share discounting cards with other people. <br> You may ask "Why should I do that?". <br> 
+									<p>This project was created to share discounting cards with other people. <br> You may ask "Why should I do that?". <br>
 										Well, some discounting cards have a loyality system. The more you buy, the more discount becomes. By sharing card with other people you can maximize discount for your card really fast. And you are not loosing anything at all! <br>
 										Also, people, who use your discounting card will get, obviously, a discount. <br> Everyone love discounts, isn't it? </p>
 								</section>
@@ -112,7 +125,7 @@
 								</section>
 							</div>
 						</div>
-					</footer>
+					</div>
 			</div>
 
 			<script src="/js/jquery.min.js"></script>
@@ -121,5 +134,6 @@
 			<script src="/js/util.js"></script>
 			<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
 			<script src="/js/main.js"></script>
+			<script src="/js/search.js"></script>
 	</body>
 </html>
