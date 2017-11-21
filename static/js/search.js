@@ -30,7 +30,7 @@ $(document).ready(function() {
       var matches = false;
 
       searchParams.forEach( function(param) {
-        if ( param.startsWith(value) ) {
+        if ( param.includes(value) ) {
           matches = true;
         }
       });
