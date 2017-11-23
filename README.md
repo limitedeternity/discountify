@@ -1,23 +1,23 @@
 # Discountify
-> Discounting cards sharing service.
+> Loyalty cards sharing service.
 
-Discountify is a service for mutually beneficial loyality cards sharing.
+Discountify is a service for mutually beneficial loyalty cards sharing.
 
 
 ## How it works?
 
-1. You upload discounting card
+1. You upload loyalty card
 
 2. People use your card while buying things to recieve discount
 
-3. You get bonuses for *using* card (aka `Loyality program`)
+3. You get bonuses for *using* card (aka `Loyalty program`)
 
 ## Advantages:
 
 ✨ All cards are dispenced to user randomly.
 This means, that all cards have probability to be given to user.
 
-🌚 No need to take tons of loyality cards with you.
+🌚 No need to take tons of loyalty cards with you.
 
 ✨ Simple and intuitive UI.
 
