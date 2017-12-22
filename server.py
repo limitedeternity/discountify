@@ -4,11 +4,13 @@ from os import environ, chdir, listdir
 from os.path import abspath, dirname
 from random import choice
 from base64 import b64encode
+from whitenoise import WhiteNoise
 
 
 debug = False
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = environ.get("SECRET_KEY", "".join(choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for _ in range(50)))
+app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
 
 if not debug:
     sslify = SSLify(app)
@@ -51,36 +53,6 @@ def index():
     response.headers['Strict-Transport-Security'] = 'max-age=31536000'
 
     return response
-
-
-@app.route('/images/<path:path>', methods=['GET'])
-def serve_images(path):
-    return send_from_directory('static/images', path)
-
-
-@app.route('/images/thumbs/<path:path>', methods=['GET'])
-def serve_thumbs(path):
-    return send_from_directory('static/images/thumbs', path)
-
-
-@app.route('/js/<path:path>', methods=['GET'])
-def serve_js(path):
-    return send_from_directory('static/js', path)
-
-
-@app.route('/css/<path:path>', methods=['GET'])
-def serve_css(path):
-    return send_from_directory('static/css', path)
-
-
-@app.route('/config/<path:path>', methods=['GET'])
-def serve_config(path):
-    return send_from_directory('static/config', path)
-
-
-@app.route('/fonts/<path:path>', methods=['GET'])
-def serve_fonts(path):
-    return send_from_directory('static/fonts', path)
 
 
 if __name__ == "__main__":
