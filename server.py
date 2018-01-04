@@ -1,9 +1,11 @@
-from flask import Flask, render_template, make_response, send_from_directory
-from flask_sslify import SSLify
+# -*- coding: utf-8 -*-
+
 from os import environ, chdir, listdir
 from os.path import abspath, dirname
 from random import choice
 from base64 import b64encode
+from flask import Flask, render_template, make_response, send_from_directory
+from flask_sslify import SSLify
 from whitenoise import WhiteNoise
 
 
@@ -49,7 +51,6 @@ def index():
     response.headers['X-Content-Type-Options'] = 'nosniff'
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['X-XSS-Protection'] = '1; mode=block'
-    response.headers['Cache-Control'] = 'no-cache'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000'
 
     return response
